@@ -1,0 +1,80 @@
+name: Bug Report
+description: Report a reproducible problem in Flow.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a bug! Please **do not share any personal financial information** or sensitive private data in your report. Flow stores all data locally on your device.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Bug Summary
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps To Reproduce
+      description: Tell us how to reproduce the issue.
+      placeholder: |
+        1. Go to '...'
+        2. Tap on '...'
+        3. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: A clear description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: A clear description of what actually happened.
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots Or Screen Recording
+      description: If applicable, add screenshots or screen recordings to help explain your problem.
+    validations:
+      required: false
+  - type: textarea
+    id: device-info
+    attributes:
+      label: Device Information
+      description: Please provide details about your environment.
+      placeholder: |
+        - Android Version:
+        - Device Model:
+        - App Version:
+        - Installation Source:
+    validations:
+      required: true
+  - type: dropdown
+    id: data-impact
+    attributes:
+      label: Data/Backup Impact
+      description: Select how this issue affects your data or backups.
+      options:
+        - No data impact
+        - Import/export issue
+        - Local data display issue
+        - Possible data loss
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here.
+    validations:
+      required: false

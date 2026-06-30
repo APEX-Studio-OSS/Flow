@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+
+# Next.js build and cache
+.next/
+out/
+dist/
+build/
+.turbo/
+.cache/
+tsconfig.tsbuildinfo
+
+# Test and coverage
+coverage/
+
+# Debug and log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Capacitor Android build and Kotlin caches
+android/.gradle/
+android/.kotlin/
+android/build/
+android/app/build/
+android/capacitor-cordova-android-plugins/build/
+
+# Android local settings and secrets
+android/local.properties
+local.properties
+
+# Android release/debug build outputs and signing materials
+android/app/release/
+android/app/debug/
+*.apk
+*.aab
+*.apks
+*.idsig
+*.jks
+*.keystore
+keystore.properties
+signing.properties
+
+# Editor and OS configurations
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

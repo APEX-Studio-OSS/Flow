@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="flow_system_bar_dark">#121212</color>
+    <color name="android_status_bar_dark">#121212</color>
+    <color name="android_navigation_bar_dark">#121212</color>
+    <color name="window_background_dark">#121212</color>
+
+
+
+</resources>

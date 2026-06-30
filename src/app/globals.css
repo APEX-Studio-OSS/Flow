@@ -1,0 +1,1351 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 0 0% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+    --primary: 220 70% 50%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 180 60% 45%;
+    --accent-rgb: 46, 184, 184;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 220 70% 50%;
+    --overlay-dim: rgba(0, 0, 0, 0.38);
+    --flow-modal-scrim: rgb(0 0 0 / 42%);
+    --safe-area-top: 0px;
+    --safe-area-bottom: 0px;
+    --safe-area-left: 0px;
+    --safe-area-right: 0px;
+    --app-header-total-height: calc(64px + var(--safe-area-top));
+    --welcome-surface: var(--background);
+    --welcome-foreground: var(--foreground);
+
+    font-size: 14px;
+  }
+
+  .dark {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 220 70% 60%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 180 60% 55%;
+    --accent-rgb: 71, 209, 209;
+    --accent-foreground: 0 0% 10%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 220 70% 60%;
+    --overlay-dim: rgba(0, 0, 0, 0.55);
+    --flow-modal-scrim: rgb(0 0 0 / 42%);
+    --welcome-surface: var(--background);
+    --welcome-foreground: var(--foreground);
+  }
+
+  .is-native {
+    --safe-area-top: env(safe-area-inset-top, 24px);
+    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-left: env(safe-area-inset-left, 0px);
+    --safe-area-right: env(safe-area-inset-right, 0px);
+  }
+
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Hide number input arrows */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+}
+
+@layer components {
+
+
+  /* react-window scrollbar styling */
+  .List {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .List::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+  
+  /* cmdk scrollbar styling */
+  [cmdk-list] {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  [cmdk-list]::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+}
+
+html {
+  --primary: 220 70% 50%;
+  --accent: 180 60% 45%;
+  --ring: 220 70% 50%;
+}
+
+.dark html {
+    --primary: 220 70% 60%;
+    --accent: 180 60% 55%;
+    --ring: 220 70% 60%;
+}
+
+@keyframes aurora {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+[data-radix-scroll-area-viewport] {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+[data-radix-scroll-area-viewport]::-webkit-scrollbar {
+  display: none;
+}
+
+/* Safe area padding utilities for native devices */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+.pl-safe {
+  padding-left: env(safe-area-inset-left);
+}
+.pr-safe {
+  padding-right: env(safe-area-inset-right);
+}
+
+html,
+body {
+  overscroll-behavior: none;
+  touch-action: pan-x pan-y;
+}
+
+/* Mobile UX Hardening overrides */
+@media (max-width: 768px) {
+  /* Prevent automatic focus zoom by ensuring inputs have at least 16px font size */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+  
+  /* Make tap targets large enough and remove blue/gray tap highlights */
+  button,
+  [role="button"],
+  a,
+  input,
+  select {
+    -webkit-tap-highlight-color: transparent !important;
+  }
+}
+
+/* Global scrollbar-hiding utility */
+.no-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Remove default scrollbar visibility for native view wrappers globally */
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Global native-app text-selection policy */
+html,
+body,
+#__next,
+[data-app-root] {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+input,
+textarea,
+select,
+[contenteditable="true"],
+[data-allow-text-selection="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: default;
+}
+
+button,
+a,
+[role="button"],
+[role="tab"],
+[role="menuitem"],
+[role="option"],
+.card,
+.dialog-content,
+.popover-content,
+nav,
+.tab,
+.bottom-nav {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+
+.app-shell {
+  height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: hsl(var(--background));
+}
+
+.app-header {
+  flex: 0 0 auto;
+  padding-top: var(--safe-area-top);
+  height: var(--app-header-total-height);
+  background: hsl(var(--background));
+  border-bottom: 1px solid hsl(var(--border) / 0.4);
+  z-index: 30;
+}
+
+.app-main-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Standard */
+}
+
+.app-main-scroll::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.translucent-action-pill {
+  background-color: hsl(var(--background) / 0.85);
+  background-image: linear-gradient(to right, hsl(var(--primary) / 0.08), hsl(var(--accent) / 0.08));
+  border: 1px solid hsl(var(--primary) / 0.25);
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.07);
+}
+
+.dark .translucent-action-pill {
+  background-color: hsl(var(--background) / 0.75);
+  background-image: linear-gradient(to right, hsl(var(--primary) / 0.12), hsl(var(--accent) / 0.12));
+  border: 1px solid hsl(var(--primary) / 0.35);
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.25);
+}
+
+.bg-overlay-dim {
+  background-color: var(--overlay-dim) !important;
+}
+
+/* Rounded interaction surface utilities */
+.tap-surface {
+  border-radius: 12px !important; /* rounded-xl */
+}
+.icon-tap-surface {
+  border-radius: 9999px !important; /* rounded-full */
+}
+.segmented-surface {
+  border-radius: 16px !important; /* rounded-2xl */
+}
+.segmented-item {
+  border-radius: 12px !important; /* rounded-xl */
+}
+
+/* Snug rounded focus helper */
+.rounded-focus:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.45) !important;
+  border-radius: inherit;
+}
+
+/* Creator Signature Animation */
+.creatorSignatureWrap {
+  width: min(100%, 320px);
+  margin: 2px auto 0;
+  overflow: visible;
+  color: var(--flow-ink, hsl(var(--foreground)));
+}
+
+.creatorSignatureSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.creatorSignatureGuide,
+.creatorSignatureGlow,
+.creatorSignatureStroke {
+  font-family: var(--font-allura), "Allura", "Segoe Script", "Brush Script MT", cursive;
+  font-size: 112px;
+}
+
+.creatorSignatureGuide {
+  fill: rgba(7, 17, 38, 0.028);
+  transform: translateY(4px);
+  opacity: 0;
+  animation:
+    creatorGuideIn 150ms ease forwards var(--signature-write-delay, 0s),
+    creatorGuideOut 270ms ease forwards var(--signature-fill-delay, 3.072s);
+}
+
+.dark .creatorSignatureGuide {
+  fill: rgba(255, 255, 255, 0.028);
+}
+
+.creatorSignatureStroke {
+  fill: transparent;
+  stroke: var(--flow-ink, hsl(var(--foreground)));
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 410;
+  stroke-dashoffset: 410;
+  opacity: 0;
+  filter: drop-shadow(0 3px 4px rgba(15, 23, 42, 0.06));
+  animation:
+    creatorWriteOpacity 0.048s linear forwards var(--signature-write-delay, 0s),
+    drawCreatorOutline var(--signature-write-duration, 3s) linear forwards var(--signature-write-delay, 0s),
+    creatorFillSignature var(--signature-fill-duration, 0.96s) ease forwards var(--signature-fill-delay, 3.072s),
+    creatorSoftenStroke var(--signature-fill-duration, 0.96s) ease forwards var(--signature-fill-delay, 3.072s);
+}
+
+.creatorSignatureGlow {
+  fill: transparent;
+  stroke: var(--flow-accent, hsl(var(--primary)));
+  stroke-width: 0.9;
+  opacity: 0;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 410;
+  stroke-dashoffset: 410;
+  animation:
+    creatorGlowWriteOpacity 0.048s linear forwards var(--signature-write-delay, 0s),
+    drawCreatorOutline var(--signature-write-duration, 3s) linear forwards var(--signature-write-delay, 0s),
+    creatorGlowOut var(--signature-fill-duration, 0.96s) ease forwards var(--signature-fill-delay, 3.072s);
+}
+
+.creatorSignatureUnderline {
+  width: min(56%, 190px);
+  height: 3px;
+  margin: -6px auto 18px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--flow-accent, hsl(var(--primary))),
+    rgba(47, 128, 237, 0.45),
+    transparent
+  );
+  transform-origin: left;
+  transform: scaleX(0);
+  opacity: 0;
+  animation: creatorLineDraw var(--signature-underline-duration, 0.81s) cubic-bezier(.22, 1, 0.36, 1) forwards var(--signature-underline-delay, 4.104s);
+}
+
+@keyframes drawCreatorOutline {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes creatorWriteOpacity {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes creatorGlowWriteOpacity {
+  to {
+    opacity: 0.45;
+  }
+}
+
+@keyframes creatorFillSignature {
+  to {
+    fill: var(--flow-ink, hsl(var(--foreground)));
+  }
+}
+
+@keyframes creatorSoftenStroke {
+  to {
+    stroke-width: 0.45;
+  }
+}
+
+@keyframes creatorGlowOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes creatorGuideIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes creatorGuideOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes creatorLineDraw {
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 430px) {
+  .creatorSignatureWrap {
+    width: min(100%, 285px);
+  }
+}
+
+@media (max-width: 380px) {
+  .creatorSignatureWrap {
+    width: min(100%, 255px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creatorSignatureGuide,
+  .creatorSignatureGlow {
+    opacity: 0 !important;
+    animation: none !important;
+  }
+
+  .creatorSignatureStroke {
+    stroke-dashoffset: 0 !important;
+    fill: var(--flow-ink, hsl(var(--foreground))) !important;
+    stroke-width: 0.45 !important;
+    animation: none !important;
+  }
+
+  .creatorSignatureUnderline {
+    opacity: 1 !important;
+    transform: scaleX(1) !important;
+    animation: none !important;
+  }
+}
+
+/* ==========================================
+   About Flow Unified Styling (Settings & Subpage)
+   ========================================== */
+
+/* 1. Page Frame */
+.aboutPage {
+  padding: 0 14px calc(env(safe-area-inset-bottom) + 28px);
+}
+
+.aboutSectionStack {
+  display: grid;
+  gap: 16px;
+}
+
+.aboutPageHeader {
+  padding: 18px 16px 16px;
+}
+
+.aboutPageHeader h1 {
+  font-size: 28px;
+  line-height: 1.12;
+  font-weight: 850;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+}
+
+.aboutPageHeader p {
+  margin-top: 6px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.creatorCard {
+  margin-top: 8px;
+  margin-bottom: 18px;
+}
+
+/* 2. Subpage Cards */
+.aboutInfoCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  padding: 20px 18px;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow:
+    0 14px 30px rgba(15, 23, 42, 0.045),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.dark .aboutInfoCard {
+  background: rgba(15, 23, 42, 0.97);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.aboutInfoCard::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(var(--accent-rgb), 0.32),
+    transparent
+  );
+}
+
+.aboutInfoHeader {
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.dark .aboutInfoHeader {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.aboutInfoHeader h2 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 850;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+  text-align: left;
+}
+
+.aboutInfoHeader p {
+  margin: 4px 0 0;
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: var(--muted-foreground);
+  text-align: left;
+}
+
+/* 3. Subpage Tables & Typography */
+.aboutMetaTable {
+  display: grid;
+  gap: 0;
+  margin: 16px 0 16px;
+  overflow: hidden;
+  border-radius: 15px;
+  background: rgba(15, 23, 42, 0.018);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.dark .aboutMetaTable {
+  background: rgba(255, 255, 255, 0.018);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.aboutMetaTable div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 12px;
+}
+
+.aboutMetaTable div + div {
+  border-top: 1px solid rgba(148, 163, 184, 0.10);
+}
+
+.dark .aboutMetaTable div + div {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.aboutMetaTable span {
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--muted-foreground);
+}
+
+.aboutMetaTable strong {
+  font-size: 11.5px;
+  line-height: 1.35;
+  font-weight: 760;
+  color: var(--foreground);
+  text-align: right;
+}
+
+.aboutInfoNote {
+  margin: 16px 0 0;
+  font-size: 12.25px;
+  line-height: 1.66;
+  color: var(--muted-foreground);
+  text-align: left;
+}
+
+.aboutLegalBody {
+  display: grid;
+  gap: 12px;
+}
+
+.aboutLegalBody p {
+  margin: 0;
+  font-size: 12.25px;
+  line-height: 1.66;
+  letter-spacing: -0.003em;
+  color: var(--muted-foreground);
+}
+
+.aboutLegalBody strong {
+  color: var(--foreground);
+  font-weight: 760;
+}
+
+.aboutLegalNote {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(148, 163, 184, 0.14);
+  font-size: 11px;
+  line-height: 1.48;
+  color: rgba(100, 116, 139, 0.92);
+  text-align: left;
+}
+
+.dark .aboutLegalNote {
+  border-top-color: rgba(255, 255, 255, 0.08);
+  color: rgba(148, 163, 184, 0.85);
+}
+
+/* 4. License Specific Content */
+.licenseSummary {
+  margin: 16px 0 0;
+  font-size: 12.25px;
+  line-height: 1.66;
+  color: var(--muted-foreground);
+  text-align: left;
+}
+
+.licenseSummary strong {
+  color: var(--foreground);
+  font-weight: 760;
+}
+
+.licenseScopeList {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.licenseScopeList div {
+  padding: 11px 12px;
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.018);
+  border: 1px solid rgba(148, 163, 184, 0.10);
+  text-align: left;
+}
+
+.dark .licenseScopeList div {
+  background: rgba(255, 255, 255, 0.018);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.licenseScopeList strong {
+  display: block;
+  font-size: 11.75px;
+  line-height: 1.35;
+  color: var(--foreground);
+  font-weight: 760;
+}
+
+.licenseScopeList span {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.licenseToggleButton {
+  margin-top: 16px;
+  min-height: 40px;
+  width: 100%;
+  border-radius: 12px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: rgba(var(--accent-rgb), 0.06);
+  border: 1px solid rgba(var(--accent-rgb), 0.12);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 780;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+.dark .licenseToggleButton {
+  background: rgba(var(--accent-rgb), 0.08);
+  border-color: rgba(var(--accent-rgb), 0.15);
+}
+
+.licenseToggleButton:active {
+  background: rgba(var(--accent-rgb), 0.10);
+}
+
+.dark .licenseToggleButton:active {
+  background: rgba(var(--accent-rgb), 0.13);
+}
+
+@media (hover: hover) {
+  .licenseToggleButton:hover {
+    background: rgba(var(--accent-rgb), 0.09);
+    border-color: rgba(var(--accent-rgb), 0.16);
+  }
+  .dark .licenseToggleButton:hover {
+    background: rgba(var(--accent-rgb), 0.12);
+    border-color: rgba(var(--accent-rgb), 0.20);
+  }
+}
+
+.licenseToggleButton svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 220ms ease;
+  color: var(--accent);
+}
+
+.licensePanel {
+  overflow: hidden;
+  margin-top: 12px;
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: rgba(15, 23, 42, 0.015);
+}
+
+.dark .licensePanel {
+  border-color: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.012);
+}
+
+.licensePanel pre {
+  margin: 0;
+  padding: 14px;
+  max-height: 240px;
+  overflow-y: auto;
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+  white-space: pre-wrap;
+  text-align: left;
+  scrollbar-width: thin;
+}
+
+.licensePanel pre::-webkit-scrollbar {
+  width: 6px;
+}
+
+.licensePanel pre::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 99px;
+}
+
+.dark .licensePanel pre::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* 5. Settings About Card Styles */
+.settingsAboutMasterCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  padding: 24px 20px 20px;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow:
+    0 16px 36px rgba(15, 23, 42, 0.055),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+  text-align: left;
+}
+
+.dark .settingsAboutMasterCard {
+  background: rgba(15, 23, 42, 0.97);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.settingsAboutMasterCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 22px;
+  right: 22px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(var(--accent-rgb), 0.20),
+    transparent
+  );
+}
+
+.settingsAboutMasterHeader {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.settingsAboutMasterHeader h2 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.18;
+  font-weight: 850;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+}
+
+.settingsAboutMasterHeader p {
+  margin: 5px 0 0;
+  font-size: 12.25px;
+  line-height: 1.4;
+  color: var(--muted-foreground);
+}
+
+/* Product Identity Block */
+.settingsAboutProductBlock {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(var(--accent-rgb), 0.035);
+  border: 1px solid rgba(var(--accent-rgb), 0.08);
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.dark .settingsAboutProductBlock {
+  background: rgba(var(--accent-rgb), 0.05);
+  border-color: rgba(var(--accent-rgb), 0.12);
+}
+
+.settingsAboutIconContainer {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(var(--accent-rgb), 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(var(--accent-rgb), 0.15);
+}
+
+.settingsAboutIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+}
+
+.settingsAboutProductInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.settingsAboutProductTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.settingsAboutProductTitleRow h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 850;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+}
+
+.settingsAboutVersionBadge {
+  font-size: 9.5px;
+  font-weight: 750;
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.15);
+  padding: 1px 6px;
+  border-radius: 6px;
+}
+
+.settingsAboutProductSubtitle {
+  margin: 0;
+  font-size: 11px;
+  color: var(--muted-foreground);
+  line-height: 1.35;
+}
+
+.settingsAboutProductChips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.settingsAboutChipSeparator {
+  opacity: 0.4;
+  font-size: 8px;
+}
+
+/* Brand / Creator Strip */
+.settingsAboutBrandStrip {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(100, 116, 139, 0.02);
+  border: 1px solid rgba(100, 116, 139, 0.05);
+  margin-bottom: 14px;
+}
+
+.dark .settingsAboutBrandStrip {
+  background: rgba(255, 255, 255, 0.015);
+  border-color: rgba(255, 255, 255, 0.04);
+}
+
+.settingsAboutBrandGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.settingsAboutBrandItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.settingsAboutBrandItem.text-right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.settingsAboutBrandItem span {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted-foreground);
+  font-weight: 600;
+}
+
+.settingsAboutBrandItem strong {
+  font-size: 12.5px;
+  font-weight: 750;
+  color: var(--foreground);
+}
+
+.settingsAboutBrandTagline {
+  font-size: 10.5px;
+  color: var(--muted-foreground);
+  line-height: 1.4;
+  border-top: 1px solid rgba(100, 116, 139, 0.06);
+  padding-top: 8px;
+  text-align: left;
+}
+
+.dark .settingsAboutBrandTagline {
+  border-color: rgba(255, 255, 255, 0.04);
+}
+
+/* Trust / Product Facts */
+.settingsAboutFactsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.settingsAboutFactItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(100, 116, 139, 0.02);
+  border: 1px solid rgba(100, 116, 139, 0.05);
+  min-width: 0;
+}
+
+.dark .settingsAboutFactItem {
+  background: rgba(255, 255, 255, 0.015);
+  border-color: rgba(255, 255, 255, 0.04);
+}
+
+.settingsAboutFactIcon {
+  width: 14px;
+  height: 14px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.settingsAboutFactText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  text-align: left;
+}
+
+.settingsAboutFactText span {
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--muted-foreground);
+  font-weight: 600;
+}
+
+.settingsAboutFactText strong {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--foreground);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 480px) {
+  .settingsAboutFactsGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+  .settingsAboutFactItem {
+    padding: 8px 6px;
+    gap: 5px;
+  }
+  .settingsAboutFactText strong {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 380px) {
+  .settingsAboutFactsGrid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .settingsAboutFactItem {
+    padding: 10px;
+    gap: 8px;
+  }
+  .settingsAboutFactText strong {
+    font-size: 10px;
+  }
+}
+
+/* Copyright Line */
+.settingsAboutCopyrightLine {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  opacity: 0.65;
+  margin: 14px 0 0;
+  text-align: center;
+}
+
+/* CTA Action Button */
+.settingsAboutCTAAction {
+  width: 100%;
+  height: 44px;
+  border-radius: 14px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  font-size: 12.5px;
+  font-weight: 750;
+  transition: transform 120ms ease, opacity 120ms ease;
+  box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.15);
+}
+
+.settingsAboutCTAAction:active {
+  transform: scale(0.985);
+  opacity: 0.95;
+}
+
+@media (hover: hover) {
+  .settingsAboutCTAAction:hover {
+    opacity: 0.95;
+  }
+}
+
+.settingsAboutCTAActionIcon {
+  width: 15px;
+  height: 15px;
+  transition: transform 150ms ease;
+}
+
+.settingsAboutCTAAction:hover .settingsAboutCTAActionIcon {
+  transform: translateX(3px);
+}
+
+
+
+/* 6. Animations & Resets */
+.aboutCardMotion {
+  animation: aboutCardIn 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.aboutFooter {
+  margin-top: 28px;
+  padding: 10px 0 calc(env(safe-area-inset-bottom) + 28px);
+  text-align: center;
+  color: rgba(100, 116, 139, 0.52);
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.dark .aboutFooter {
+  color: rgba(148, 163, 184, 0.45);
+}
+
+@keyframes aboutCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aboutCardMotion,
+  .aboutCardMotion * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .aboutInfoCard,
+  .settingsAboutMasterCard {
+    padding: 20px 18px;
+    border-radius: 20px;
+  }
+
+  .aboutInfoHeader h2,
+  .settingsAboutMasterHeader h2 {
+    font-size: 15.5px;
+  }
+
+  .aboutLegalBody p,
+  .aboutInfoNote,
+  .licenseSummary {
+    font-size: 12.25px;
+    line-height: 1.64;
+  }
+
+  .aboutMetaTable strong,
+  .aboutMetaTable span,
+  .licenseScopeList strong,
+  .licenseScopeList span {
+    font-size: 11px;
+  }
+
+  .settingsAboutMiniSignals {
+    width: 100%;
+    margin-top: 4px;
+  }
+}
+
+/* Stable Dialog Animations */
+@keyframes overlay-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes overlay-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes dialog-open-slide {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 6px));
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes dialog-close-slide {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 6px));
+  }
+}
+
+.dialog-overlay-animate[data-state="open"] {
+  animation: overlay-fade-in 160ms ease-out forwards;
+}
+
+.dialog-overlay-animate[data-state="closed"] {
+  animation: overlay-fade-out 160ms ease-in forwards;
+}
+
+.dialog-content-animate[data-state="open"] {
+  animation: dialog-open-slide 180ms ease-out forwards;
+}
+
+.dialog-content-animate[data-state="closed"] {
+  animation: dialog-close-slide 180ms ease-in forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog-content-animate[data-state="open"] {
+    animation: overlay-fade-in 180ms ease-out forwards;
+  }
+  .dialog-content-animate[data-state="closed"] {
+    animation: overlay-fade-out 180ms ease-in forwards;
+  }
+}
+
+@keyframes welcome-dash-breath {
+  0%, 100% {
+    transform: scaleX(0.78) !important;
+    opacity: 0.45 !important;
+  }
+  50% {
+    transform: scaleX(1.0) !important;
+    opacity: 0.9 !important;
+  }
+}
+
+.animate-welcome-dash-breath {
+  animation: welcome-dash-breath 3.6s ease-in-out infinite;
+}
+
+@keyframes welcome-arrow-nudge {
+  0% {
+    transform: translateX(0) !important;
+  }
+  8% {
+    transform: translateX(3px) !important;
+  }
+  16%, 100% {
+    transform: translateX(0) !important;
+  }
+}
+
+.animate-welcome-arrow-nudge {
+  animation: welcome-arrow-nudge 4.0s ease-in-out infinite;
+}
+
+.document-hidden .animate-welcome-dash-breath,
+.document-hidden .animate-welcome-arrow-nudge {
+  animation-play-state: paused !important;
+}
+
+/* Ensure edit/delete buttons remain accessible on non-hover touch devices of all screen sizes */
+@media (hover: none) {
+  .touch-hover-actions {
+    opacity: 0.9 !important;
+  }
+}
+
+
+
